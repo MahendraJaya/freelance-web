@@ -1,6 +1,6 @@
 <div class="flex border border-serv-testimonial-border rounded-lg mb-4"><!--horizantil margin is just for display-->
     <div class="flex items-start px-4 py-6">
-        <img class="w-16 h-16 rounded-full object-cover mr-4" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar">
+        <img class="w-16 h-16 rounded-full object-cover mr-4" src="{{url('https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')}}" alt="avatar">
         <div class="w-full">
             <div class="flex items-center justify-between">
                 <h2 class="text-xl font-medium text-serv-bg my-1">Farzhan Pill</h2>

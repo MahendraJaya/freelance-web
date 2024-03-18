@@ -3,7 +3,7 @@
         <div class="flex items-center space-x-2 mb-6">
             <!--Author's profile photo-->
             <img class="w-14 h-14 object-cover object-center rounded-full mr-1"
-                src="https://randomuser.me/api/portraits/men/1.jpg" alt="random user" />
+                src="{{url('https://randomuser.me/api/portraits/men/1.jpg')}}" alt="random user" />
             <div>
                 <!--Author name-->
                 <p class="text-gray-900 font-semibold text-lg">Alex Jones</p>
@@ -15,7 +15,7 @@
 
         <!--Banner image-->
         <img class="rounded-2xl w-full"
-            src="https://via.placeholder.com/750x500" alt="placeholder" />
+            src="{{url('https://via.placeholder.com/750x500')}}" alt="placeholder" />
 
         <!--Title-->
         <h1 class="font-semibold text-gray-900 text-lg mt-1 leading-normal py-4">
@@ -24,7 +24,7 @@
         </h1>
         <!--Description-->
         <div class="max-w-full">
-            <?php include 'components/rating.php'; ?>
+            @include('components.Landing.rating')
         </div>
 
         <div class="text-center mt-5 flex justify-between w-full">

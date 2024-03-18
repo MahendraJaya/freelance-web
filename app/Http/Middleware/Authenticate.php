@@ -15,9 +15,11 @@ class Authenticate extends Middleware
         // return $request->expectsJson() ? null : route('index');
         if(!$request -> expectsJson()){
             return route('index');
+            // return route('member.dashboard.index');
         }
 
         // redirect to homepage after login
+        // return route('index');
         return route('index');
     }
 }

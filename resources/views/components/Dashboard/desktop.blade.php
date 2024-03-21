@@ -2,7 +2,7 @@
 <aside class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-white md:block" aria-label="aside">
     <div class="text-serv-bg">
         <div class="" href="#">
-            <img src="{{asset('images/logo.svg')}}" alt="" class="object-center mx-auto my-8 ">
+            <img src="{{asset('assets/images/logo.svg')}}" alt="" class="object-center mx-auto my-8 ">
         </div>
         <div class="flex items-center pt-8 pl-5 space-x-2 border-t border-gray-100">
             <!--Author's profile photo-->

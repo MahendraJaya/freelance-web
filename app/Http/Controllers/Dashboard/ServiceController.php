@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\ThumbnailService;
 use Illuminate\Http\Request;
 
+use App\Models\ThumbnailService;
 use App\Http\Requests\Dashboard\Service\StoreServiceRequest;
 use App\Http\Requests\Dashboard\Service\UpdateServiceRequest;
 
@@ -21,6 +21,7 @@ use App\Models\AdvantageUser;
 use App\Models\ThumbnailServicer;
 use App\Models\Order;
 use App\Models\User;
+
 class ServiceController extends Controller
 {
     public function __construct()
@@ -184,6 +185,51 @@ class ServiceController extends Controller
             }
         }
 
+        //update to thumbnail
+        if($request->hasFile('thumbnails')){
+            foreach ($request->file('thumbnails') as $key => $file) {
+                
+                // get old photo
+                $get_photo = ThumbnailService::where('id', $key)->first();
+
+                //store photo baru
+                $path = $file->store(
+                    'assets/service/thumbnail', 'public'
+                );
+
+                //update thumbnail
+                $thumbnail_service = ThumbnailService::find($key);
+                $thumbnail_service->thumbnail = $path;
+                $thumbnail_service->save();
+
+                //delete olf photo
+                $data = 'storage/'.$get_photo['photo'];
+                if(File::exists($data)){
+                    File::delete($data);
+                }else{
+                    File::delete('storage/app/public/'.$get_photo['photo']);
+                }
+
+
+            }
+        }
+
+        //add to thumbnail service
+        if ($request->hasFile('thumbnail')) {
+            foreach ($request->file('thumbnail') as $file) {
+                $path = $file->store(
+                    'assets/service/thumbnail', 'public'
+                );
+
+                $thumbnail_service = new ThumbnailService;
+                $thumbnail_service->service_id = $service['id'];
+                $thumbnail_service->thumbnail = $path;
+                $thumbnail_service->save();
+            }
+        }
+
+        toast()->success('Update has been success');
+        return redirect()->route('member.service.index');
     }
 
     /**
@@ -191,6 +237,6 @@ class ServiceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return abort(404);
     }
 }

@@ -37,16 +37,16 @@ class MemberController extends Controller
 
         $progress = Order::where('freelancer_id', Auth::user()->id)
                     ->where('order_status_id', '=', '2')
-                    ->count('');
+                    ->count();
 
         $completed = Order::where('freelancer_id', Auth::user()->id)
                     ->where('order_status_id', '=', '1')
-                    ->count('');
+                    ->count();
 
         $freelancer = Order::where('buyer_id', Auth::user()->id)
                     ->where('order_status_id', '=', '2')
                     ->distinct('freelancer_id')
-                    ->count('');
+                    ->count();
 
         return view('pages.dashboard.index', compact('order', 'progress', 'completed', 'freelancer'));
     }

@@ -56,6 +56,7 @@ class ServiceController extends Controller
         $data = $request->all();
         $data['users_id'] = Auth::user()->id;
 
+        
         //add to service
         $service = Service::create($data);
 
@@ -63,7 +64,7 @@ class ServiceController extends Controller
         foreach ($data['advantage-service'] as $key => $value) {
             $advantage_service = new AdvantageService;
             $advantage_service->service_id = $service->id;
-            $advantage_service->advantage_id = $value;
+            $advantage_service->advantage = $value;
             $advantage_service->save();
         }
 
@@ -72,7 +73,7 @@ class ServiceController extends Controller
         foreach ($data['advantage-user'] as $key => $value) {
             $advantage_user = new AdvantageUser;
             $advantage_user->service_id = $service->id;
-            $advantage_user->advantage_id = $value;
+            $advantage_user->advantage = $value;
             $advantage_user->save();
         }
 
@@ -91,7 +92,7 @@ class ServiceController extends Controller
         }
 
         //add to tagline
-        foreach ($$data['tagline'] as $key => $value) {
+        foreach ($data['tagline'] as $key => $value) {
             $tagline = new Tagline;
             $tagline->service_id = $service->id;
             $tagline->tagline = $value;
@@ -120,6 +121,8 @@ class ServiceController extends Controller
         $advantage_user = AdvantageUser::where('service_id', $service->id)->get();
         $thumbnail_service = ThumbnailService::where('service_id', $service->id)->get();
 
+
+
         return view('pages.dashboard.service.edit', 
         compact('service', 'tagline', 'advantage_service', 'advantage_user', 'thumbnail_service'));
     }
@@ -131,20 +134,21 @@ class ServiceController extends Controller
     {
         $data = $request->all();
 
+        
         //update to service
         $service->update($data);
 
         //update to advantage service
-        foreach ($data['advantage-service'] as $key => $value) {
+        foreach ($data['advantage-services'] as $key => $value) {
             $advantage_service = AdvantageService::find($key);
             $advantage_service->advantage = $value;
             $advantage_service->save();
         }
 
         //add new advantage service
-        if(isset($data['advantage_service'])){
+        if(isset($data['advantage-service'])){
             foreach ($data['advantage-service'] as $key => $value) {
-                $advantage_service = AdvantageService::find($key);
+                $advantage_service = New AdvantageService;
                 $advantage_service->service_id = $service->id;
                 $advantage_service->advantage = $value;
                 $advantage_service->save();
@@ -152,16 +156,16 @@ class ServiceController extends Controller
         }
 
         //update to advantage user
-        foreach ($data['advantage-user'] as $key => $value) {
+        foreach ($data['advantage-users'] as $key => $value) {
             $advantage_user = AdvantageUser::find($key);
             $advantage_user->advantage = $value;
             $advantage_user->save();
         }
 
         //add new advantage user
-        if(isset($data['advantage_user'])){
+        if(isset($data['advantage-user'])){
             foreach ($data['advantage-user'] as $key => $value) {
-                $advantage_user = AdvantageUser::find($key);
+                $advantage_user = New AdvantageUser;
                 $advantage_user->service_id = $service->id;
                 $advantage_user->advantage = $value;
                 $advantage_user->save();
@@ -169,7 +173,7 @@ class ServiceController extends Controller
         }
 
         //update to tagline
-        foreach ($data['tagline'] as $key => $value) {
+        foreach ($data['taglines'] as $key => $value) {
             $tagline = tagline::find($key);
             $tagline->tagline = $value;
             $tagline->save();
@@ -178,7 +182,7 @@ class ServiceController extends Controller
         //add new tagline
         if(isset($data['tagline'])){
             foreach ($data['tagline'] as $key => $value) {
-                $tagline = tagline::find($key);
+                $tagline = New tagline;
                 $tagline->service_id = $service->id;
                 $tagline->tagline = $value;
                 $tagline->save();
@@ -209,8 +213,6 @@ class ServiceController extends Controller
                 }else{
                     File::delete('storage/app/public/'.$get_photo['photo']);
                 }
-
-
             }
         }
 

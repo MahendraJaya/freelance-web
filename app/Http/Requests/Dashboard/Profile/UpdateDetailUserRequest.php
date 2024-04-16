@@ -28,12 +28,12 @@ class UpdateDetailUserRequest extends FormRequest
                 'nullable', 'file', 'max:1024'
             ],
             'role' => [
-                'nullable', 'file', 'max:100'
+                'nullable', 'string', 'max:100'
             ],
             'contact_number' => [
                 'required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'max:12'
             ],
-            'contact_number' => [
+            'biography' => [
                 'nullable', 'string', 'max:5000'
             ],
             

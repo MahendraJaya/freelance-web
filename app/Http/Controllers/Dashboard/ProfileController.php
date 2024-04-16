@@ -81,10 +81,10 @@ class ProfileController extends Controller
         $data_detail_user = $request_detail_user->all();
 
         //get photo user
-        $get_photo = DetailUser::where('user_id', Auth::user()->id)->first();
+        $get_photo = DetailUser::where('users_id', Auth::user()->id)->first();
 
         //delete old file (old photo) from sotrage
-        if (isset ($data_detail_user['photo'])) {
+        if (isset($data_detail_user['photo'])) {
             $data = 'storage/' . $get_photo['photo'];
             if (File::exists($data)) {
                 File::delete($data);
@@ -94,7 +94,7 @@ class ProfileController extends Controller
         }
 
         //store file photo
-        if (isset ($data_detail_user['photo'])) {
+        if (isset($data_detail_user['photo'])) {
             $data_detail_user['photo'] = $request_detail_user
                 ->file('photo')
                 ->store('assets/photo');
@@ -110,7 +110,7 @@ class ProfileController extends Controller
 
         //save to experience user
         $experience_user_id = ExperienceUser::where('detail_user_id', $detail_user['id'])->first();
-        if (isset ($experience_user_id)) {
+        if (isset($experience_user_id)) {
             foreach ($data_profile['experience'] as $key => $value) {
                 $experience_user = ExperienceUser::find($key);
                 $experience_user->detail_user_id = $detail_user['id'];
